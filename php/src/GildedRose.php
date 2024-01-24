@@ -24,9 +24,11 @@ final class GildedRose
 
     public function updateQuality(): void
     {
-        foreach ($this->items as $item) {
-            $gildedRoseItem = $this->gildedRoseItemFactory->createGildedRoseItem($item);
-            $gildedRoseItem->ageByOneDay();
-        }
+        array_map(
+            function (Item $item) {
+                $this->gildedRoseItemFactory->createGildedRoseItem($item)->ageByOneDay();
+            },
+            $this->items
+        );
     }
 }
